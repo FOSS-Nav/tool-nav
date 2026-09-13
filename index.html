@@ -1,1 +1,65 @@
-1231231
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="FOSS-Nav · 开源导航工具集 — 收录导航 / 惯导 / GNSS 相关开源工具，提供统一展示与入口。" />
+  <meta name="theme-color" content="#3b82f6" />
+  <title>FOSS-Nav · 开源导航工具集</title>
+
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233b82f6'/%3E%3Ctext x='50%25' y='52%25' font-size='38' text-anchor='middle' dominant-baseline='middle' fill='white'%3E🧭%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ============================================================
+       顶部 Header
+       ============================================================ -->
+  <header class="site-header">
+    <div class="container">
+      <a href="#/" class="brand" aria-label="FOSS-Nav 首页">
+        <span class="brand-mark" aria-hidden="true">🧭</span>
+        <span class="brand-text">
+          <span class="brand-title">FOSS-Nav</span>
+          <span class="brand-sub">开源导航工具集</span>
+        </span>
+      </a>
+
+      <nav class="tool-tabs" id="toolTabs" aria-label="工具列表">
+        <!-- 由 app.js 渲染 -->
+      </nav>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       主内容区（由 app.js 根据当前选中工具动态渲染）
+       ============================================================ -->
+  <main id="toolContent" role="main">
+    <!-- 占位：app.js 启动后会替换 -->
+  </main>
+
+  <!-- ============================================================
+       底部 Footer
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <strong>FOSS-Nav</strong> · 一个收录导航 / 惯导 / GNSS 相关开源工具的索引站
+      </p>
+      <p>
+        数据驱动渲染 ·
+        <a href="https://gitee.com/tmrnic" target="_blank" rel="noopener">@TMRNic</a> ·
+        工具按各自仓库协议发布
+      </p>
+    </div>
+  </footer>
+
+  <!-- 数据 & 逻辑 -->
+  <script src="assets/tools.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
