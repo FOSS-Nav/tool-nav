@@ -1,0 +1,68 @@
+# ============================================================
+# FOSS-Nav · Jekyll 配置（备用保险）
+# ============================================================
+#
+# 本项目用 `.nojekyll` 文件显式禁用了 Jekyll 处理，本文件仅作为
+# 「万一 `.nojekyll` 被误删」时的兜底配置，明确告诉 Jekyll 该如何
+# 处理仓库内的文件。
+#
+# 如果你希望启用 Jekyll 主题（例如 minima / jekyll-theme-cayman），
+# 也可以保留此文件并去掉 `.nojekyll`。
+#
+# ============================================================
+
+# ---- 站点元数据 ----
+title: FOSS-Nav · 开源导航工具集
+description: >-
+  收录导航 / 惯导 / GNSS 相关开源工具的统一索引站。
+tagline: 收录导航 / 惯导 / GNSS 相关开源工具的统一索引站。
+author: TMRNic
+
+# ---- 不要主题 ----
+# FOSS-Nav 自己有完整的 CSS / JS，不需要 Jekyll 主题。
+# 如果你想要 Jekyll 主题，把下面这行注释掉并加上 theme: 即可。
+theme: null
+
+# ---- 安全模式 ----
+# GitHub Pages 强制 safe 模式，这里显式声明意图。
+safe: true
+
+# ---- 包含 / 排除 ----
+# FOSS-Nav 没有任何 Markdown / Liquid 模板，所有 HTML 都是最终产物。
+# 但 Jekyll 仍然会扫描并复制 .html / .css / .js / .md 等文件到 _site/。
+# 下面的 exclude 列表确保 Jekyll 不会因某些「非站点」文件报错。
+
+include:
+  - .nojekyll
+  - .htaccess
+  - _redirects
+
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+  - Gemfile
+  - Gemfile.lock
+  - .git
+  - .github
+  - .vscode
+  - .idea
+  - verify.mjs
+  - .rendered-dom.html
+  - preview-*.png
+  - README.md
+  - '*.log'
+  - '*.tmp'
+  - '*.bak'
+  - '*.swp'
+
+# ---- Markdown 引擎 ----
+# FOSS-Nav 没有 .md 内容文件（README.md 被排除），这里写默认即可。
+markdown: kramdown
+highlighter: rouge
+
+# ---- 永久链接 ----
+# FOSS-Nav 使用 hash 路由，不依赖 Jekyll permalink。
+permalink: pretty

@@ -3,14 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="FOSS-Nav · 开源导航工具集 — 收录导航 / 惯导 / GNSS 相关开源工具，提供统一展示与入口。" />
-  <meta name="theme-color" content="#3b82f6" />
-  <title>FOSS-Nav · 开源导航工具集</title>
 
+  <!-- ============================================================
+       SEO / 社交分享卡片（Open Graph + Twitter Card）
+       GitHub Pages 部署后，复制 URL 到微信/微博/Twitter 时显示
+       ============================================================ -->
+  <title>FOSS-Nav · 开源导航工具集</title>
+  <meta name="description" content="FOSS-Nav · 开源导航工具集 —— 收录导航 / 惯导 / GNSS 相关开源工具，提供统一展示与入口。" />
+  <meta name="keywords" content="FOSS-Nav, 导航, 惯导, GNSS, IMU, 串口采数, LabTool, 开源, 工具集" />
+  <meta name="author" content="TMRNic" />
+  <meta name="theme-color" content="#3b82f6" />
+  <link rel="canonical" href="./" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FOSS-Nav · 开源导航工具集" />
+  <meta property="og:description" content="收录导航 / 惯导 / GNSS 相关开源工具的统一索引站。" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="FOSS-Nav" />
+  <meta property="og:url" content="./" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="FOSS-Nav · 开源导航工具集" />
+  <meta name="twitter:description" content="收录导航 / 惯导 / GNSS 相关开源工具的统一索引站。" />
+
+  <!-- ============================================================
+       资源（全部相对路径，适配 GitHub Pages 子路径部署）
+       ============================================================ -->
   <link rel="stylesheet" href="assets/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233b82f6'/%3E%3Ctext x='50%25' y='52%25' font-size='38' text-anchor='middle' dominant-baseline='middle' fill='white'%3E🧭%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233b82f6'/%3E%3Ctext x='50%25' y='52%25' font-size='38' text-anchor='middle' dominant-baseline='middle' fill='white'%3E🧭%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
+
+  <!-- ============================================================
+       <noscript> 降级提示：JS 禁用时给用户友好说明
+       ============================================================ -->
+  <noscript>
+    <div style="
+      position: fixed; inset: 0; z-index: 9999;
+      display: grid; place-items: center;
+      background: #f6f8fb; color: #0f172a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+      padding: 24px; text-align: center;
+    ">
+      <div style="max-width: 480px;">
+        <div style="font-size: 56px; line-height: 1; margin-bottom: 12px;">🧭</div>
+        <h1 style="font-size: 22px; margin: 0 0 10px;">FOSS-Nav 需要 JavaScript</h1>
+        <p style="font-size: 14.5px; line-height: 1.7; color: #475569; margin: 0;">
+          本页面是一个数据驱动的多工具索引站，所有内容由 JavaScript 动态加载。
+          请在你的浏览器中启用 JavaScript 后刷新页面。
+        </p>
+        <p style="font-size: 13px; color: #94a3b8; margin: 18px 0 0;">
+          工具源码详见
+          <a href="https://gitee.com/tmrnic" target="_blank" rel="noopener" style="color:#3b82f6;">gitee.com/tmrnic</a>
+        </p>
+      </div>
+    </div>
+  </noscript>
 
   <!-- ============================================================
        顶部 Header
@@ -58,7 +108,9 @@
     </div>
   </footer>
 
-  <!-- 数据 & 逻辑 -->
+  <!-- ============================================================
+       数据 & 逻辑（相对路径，适配 GitHub Pages 子路径部署）
+       ============================================================ -->
   <script src="assets/tools.js"></script>
   <script src="assets/app.js"></script>
 </body>
