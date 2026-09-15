@@ -25,7 +25,26 @@
  *   panels       功能面板（用于「功能面板」区块，按工具实际 Tab 写）
  *   workflow     使用步骤（用于「使用流程」区块）
  *   versions     版本历史（按时间倒序，每条：{label, year, text}）
- *   architecture 架构图（text / ascii art，用于「架构」区块，可选）
+ *   archSpec     架构图（结构化 spec，渲染为 SVG，可选）
+ *                 {
+ *                   title:    标题,
+ *                   subtitle: 副标题（可选）,
+ *                   lanes:    [ { name, subtitle, tone, modules: [{name, desc, icon?}] } ],
+ *                   flows:    [ { fromLane, toLane, label, reverse? } ],
+ *                   legend:   [ { tone, label } ]  （可选）
+ *                 }
+ *   downloads    软件下载（可选）：放在「核心功能」之前
+ *                 {
+ *                   title, subtitle,
+ *                   releasedAt, version,
+ *                   items: [{
+ *                     label, desc, filename, sizeText, sha256,
+ *                     platform: 'x64'|'ia32', type: 'portable'|'installer',
+ *                     recommended?: bool, url, accent?: '#hex'
+ *                   }],
+ *                   source: { label, url, hint },
+ *                   requirements: [string]
+ *                 }
  *   contact      联系方式列表：{icon, label, value, href?}
  *
  * ============================================================
@@ -54,11 +73,12 @@ const TOOLS = [
       { value: '10', unit: '种', label: '基础数据字段类型' },
       { value: '2', unit: '路', label: '异步串口 (IMU + GNSS)' },
       { value: '3', unit: '联', label: '实时曲线 (uPlot)' },
-      { value: '3600', unit: '点', label: 'GNSS 轨迹滑动窗口' }
+      { value: '3600', unit: '点', label: 'GNSS 轨迹滑动窗口' },
+      { value: '3', unit: '语', label: 'i18n（简中 / 繁中 / English）' }
     ],
 
     repos: [
-      { label: 'V3 (Electron) 仓库', url: 'https://gitee.com/tmrnic/lab-tool-v3' },
+      { label: 'V3 (Electron) 仓库', url: 'https://github.com/FOSS-Nav/LabTool-v3' },
       { label: 'V2 (Qt) 仓库', url: 'https://gitee.com/tmrnic/lab-tool-v2' }
     ],
 
@@ -73,8 +93,8 @@ const TOOLS = [
     highlights: [
       {
         icon: '📋',
-        title: '可编辑协议帧',
-        desc: '10 种基础数据类型（int8/16/32、uint8/16/32、float/double、24-bit/16-bit 非标），自由组合字节序、标度因数、帧头/时间戳/校验位；支持加载/保存为 CSV 配置（兼容 V2 格式）。'
+        title: '可编辑协议帧 + 状态机解码',
+        desc: '10 种基础数据类型（int8/16/32、uint8/16/32、float/double、24-bit/16-bit 非标），自由组合字节序、标度因数、帧头/时间戳/校验位；底层帧状态机支持流式解码、帧头自恢复、跨 chunk 粘包；CSV 配置可与 V2 互通。'
       },
       {
         icon: '🔌',
@@ -135,9 +155,9 @@ const TOOLS = [
     versions: [
       {
         label: 'V3',
-        year: '2025+',
+        year: '2025–',
         title: 'Electron + React + TypeScript 重构版',
-        desc: '串口、解析、UI 完全重写。引入 Zustand 全局 store、uPlot 高速曲线、Canvas 2D 轨迹，IPC 走 contextBridge 安全模型。'
+        desc: '串口、解析、UI 完全重写。引入 Zustand 全局 store、uPlot 高速曲线、Canvas 2D 轨迹、contextBridge 安全 IPC，附三语 i18n 与暗色 / 浅色 / 跟随系统三档主题。'
       },
       {
         label: 'V2',
@@ -153,27 +173,129 @@ const TOOLS = [
       }
     ],
 
-    architecture:
-      '┌────────── Renderer (React + Zustand) ──────────┐\n' +
-      '│  App = Header + ToolBox + StatusBar              │\n' +
-      '│  ToolBox: Frame / Serial / GNSS / Data /          │\n' +
-      '│           Curve / Trace / Assistant               │\n' +
-      '└──────────────────────────┬───────────────────────┘\n' +
-      '                           │ window.labtool.* (typed)\n' +
-      '                           ▼\n' +
-      '┌────────── Preload (typed IPC) ──────────────────┐\n' +
-      '│  LabtoolAPI (contextBridge)                      │\n' +
-      '└──────────────────────────┬───────────────────────┘\n' +
-      '                           │ ipcRenderer.invoke / on\n' +
-      '                           ▼\n' +
-      '┌────────── Main (Node) ──────────────────────────┐\n' +
-      '│  SerialMgr ─→ Scheduler (10ms tick) ─→ Recorder │\n' +
-      '│  (IMU+GNSS 双路)            └─→ WebContents.send │\n' +
-      '└──────────────────────────────────────────────────┘',
+    downloads: {
+      title: '下载 LabTool-V3',
+      subtitle: 'Windows 平台 · GPL-3.0 · Electron + React + TypeScript',
+      releasedAt: '2026-09-15',
+      version: '0.2.0',
+      items: [
+        {
+          label: 'x64 Portable',
+          desc: '64 位单文件便携版 · 解压即用 · 适合大多数 Windows 10/11 用户',
+          filename: 'LabTool-V3-0.2.0-x64-portable.exe',
+          sizeText: '67.44 MB',
+          sha256: '4f1ae8a2114893e5c37b5839852bfe384f289a7f369ff12bd84af766dc74e78b',
+          platform: 'x64',
+          type: 'portable',
+          recommended: true,
+          url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/download/V3/LabTool-V3-0.2.0-x64-portable.exe',
+          icon: '🟦'
+        },
+        {
+          label: 'x64 Installer',
+          desc: '64 位 NSIS 安装包 · 支持开始菜单 / 桌面快捷方式 / 控制面板卸载',
+          filename: 'LabTool-V3-0.2.0-x64-setup.exe',
+          sizeText: '67.67 MB',
+          sha256: '44afc95553d1f8dd129f8e590f6c08ffd532b2353a4b32ab0f9e954e9d1877ff',
+          platform: 'x64',
+          type: 'installer',
+          url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/download/V3/LabTool-V3-0.2.0-x64-setup.exe',
+          icon: '🟦'
+        },
+        {
+          label: 'ia32 Portable',
+          desc: '32 位便携版 · 老机器或精简系统备选',
+          filename: 'LabTool-V3-0.2.0-ia32-portable.exe',
+          sizeText: '63.45 MB',
+          sha256: '905cb39d7fe9e2250e5841ce2101dd8e5d1fa5be2f0a4c640f42bb799957e6be',
+          platform: 'ia32',
+          type: 'portable',
+          url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/download/V3/LabTool-V3-0.2.0-ia32-portable.exe',
+          icon: '🟩'
+        },
+        {
+          label: 'ia32 Installer',
+          desc: '32 位 NSIS 安装包',
+          filename: 'LabTool-V3-0.2.0-ia32-setup.exe',
+          sizeText: '63.68 MB',
+          sha256: '4dcd085d9e1583fb39c6b5c5e763932758767095b1614385c3e0cec00612fe9f',
+          platform: 'ia32',
+          type: 'installer',
+          url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/download/V3/LabTool-V3-0.2.0-ia32-setup.exe',
+          icon: '🟩'
+        }
+      ],
+      source: {
+        label: '查看源码 / 自行构建',
+        url: 'https://github.com/FOSS-Nav/LabTool-v3',
+        hint: '开发者可 clone 仓库后按 README 的 Windows / 命令行步骤构建（需 Node.js ≥ 20）'
+      },
+      releasePage: {
+        label: 'Release 页面',
+        url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/tag/V3',
+        hint: 'v0.2.0 正式发布页 · 含完整变更日志'
+      },
+      checksums: {
+        label: 'SHA-256 校验和 (SHA256SUMS.txt)',
+        url: 'https://github.com/FOSS-Nav/LabTool-v3/releases/download/V3/SHA256SUMS.txt',
+        hint: '下载后在同目录执行 shasum -a 256 -c SHA256SUMS.txt 校验全部 6 个 exe'
+      },
+      requirements: [
+        '操作系统：Windows 10 / 11（x64 或 x86 架构，按下载选择）',
+        '硬件：约 200 MB 可用磁盘空间 · 无独立显卡要求',
+        '串口：USB 转串口适配器（CH340 / CP2102 / FT232 等），系统已识别为 COMx 即可',
+        '驱动：项目本身不打包串口驱动；首次连接若 Windows 提示未知设备，请安装适配器厂商驱动'
+      ]
+    },
+
+    archSpec: {
+      title: 'Electron 三进程架构 + 双向 IPC 数据流',
+      subtitle: 'React · Zustand · uPlot · serialport · electron-vite',
+      lanes: [
+        {
+          name: 'Renderer',
+          subtitle: 'React + Zustand 渲染进程',
+          tone: 'accent',
+          modules: [
+            { name: 'Header',     desc: 'IMU / GNSS LED + 主题 / 语言切换' },
+            { name: 'ToolBox',    desc: '7 面板：Frame · Serial · GNSS · Data · Curve · Trace · Assistant' },
+            { name: 'StatusBar',  desc: '时钟 / 帧数 / 录制状态' }
+          ]
+        },
+        {
+          name: 'Preload',
+          subtitle: 'typed IPC 安全桥',
+          tone: 'muted',
+          modules: [
+            { name: 'LabtoolAPI', desc: 'contextBridge.exposeInMainWorld 唯一入口' }
+          ]
+        },
+        {
+          name: 'Main',
+          subtitle: 'Node 主进程',
+          tone: 'accent',
+          modules: [
+            { name: 'SerialMgr',  desc: 'IMU 字节流 + GNSS 文本行流' },
+            { name: 'Scheduler',  desc: '10 ms tick → WebContents.send' },
+            { name: 'Recorder',   desc: '.txt（解析）+ .bin（原始）双轨' }
+          ]
+        }
+      ],
+      flows: [
+        { fromLane: 0, toLane: 1, label: 'window.labtool.*  (typed)' },
+        { fromLane: 1, toLane: 2, label: 'ipcRenderer.invoke / on' },
+        { fromLane: 2, toLane: 0, label: 'WebContents.send  (FrameParsed)', reverse: true }
+      ],
+      legend: [
+        { tone: 'accent', label: '业务进程 (Renderer · Main)' },
+        { tone: 'muted',  label: '桥接进程 (Preload)' },
+        { tone: 'flow',   label: '虚线 = 异步推送（主 → 渲染）' }
+      ]
+    },
 
     contact: [
       { icon: '📧', label: '作者邮箱', value: 'yangxiaokang495@163.com', href: 'mailto:yangxiaokang495@163.com' },
-      { icon: '📦', label: '开源仓库', value: 'gitee.com/tmrnic/lab-tool-v3', href: 'https://gitee.com/tmrnic/lab-tool-v3' },
+      { icon: '📦', label: '开源仓库', value: 'github.com/FOSS-Nav/LabTool-v3', href: 'https://github.com/FOSS-Nav/LabTool-v3' },
       { icon: '💬', label: '知乎主页', value: 'zhihu.com/people/qikitaka', href: 'https://www.zhihu.com/people/qikitaka' },
       { icon: '🌐', label: '个人网站', value: 'navspace.tech', href: 'http://www.navspace.tech' }
     ]
@@ -206,6 +328,11 @@ const TOOLS = [
   //   panels: [ { icon: '📋', name: '面板', desc: '...' } ],
   //   workflow: [ { title: '步骤', desc: '...' } ],
   //   versions: [ { label: 'V1', year: '2025', title: '...', desc: '...' } ],
+  //   archSpec: {
+  //     title: '...',
+  //     lanes: [ { name: '层名', subtitle: '...', tone: 'accent', modules: [{ name: '模块', desc: '...' }] } ],
+  //     flows: [ { fromLane: 0, toLane: 1, label: '...' } ]
+  //   },
   //   contact: [ { icon: '📧', label: '邮箱', value: '...', href: 'mailto:...' } ]
   // }
   // ============================================================

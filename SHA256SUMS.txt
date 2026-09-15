@@ -1,0 +1,32 @@
+LabTool-V3 v0.2.0  -  Release SHA-256 Checksums
+Generated     : 2026-09-15 13:16:10 +08:00
+Source        : electron-builder 26.15.3 (Windows host)
+Project       : https://github.com/FOSS-Nav/LabTool-v3
+Release tag   : v0.2.0
+
+----------------------------------------------------------------
+  #   Filename                                       Size (MB)  SHA-256
+----------------------------------------------------------------
+   1   LabTool-V3-0.2.0-ia32-portable.exe                63.45  905cb39d7fe9e2250e5841ce2101dd8e5d1fa5be2f0a4c640f42bb799957e6be
+   2   LabTool-V3-0.2.0-ia32-setup.exe                   63.68  4dcd085d9e1583fb39c6b5c5e763932758767095b1614385c3e0cec00612fe9f
+   3   LabTool-V3-0.2.0-portable.exe                    130.54  558d580db88e8d9ae7fa8febb5dbf50f2befd8440699705a3b2b89d6c24de726
+   4   LabTool-V3-0.2.0-setup.exe                       130.77  85ba921d5b5a6b6bda7d36d721156a5355023cff408695a3dedd0dad77ecfef2
+   5   LabTool-V3-0.2.0-x64-portable.exe                 67.44  4f1ae8a2114893e5c37b5839852bfe384f289a7f369ff12bd84af766dc74e78b
+   6   LabTool-V3-0.2.0-x64-setup.exe                    67.67  44afc95553d1f8dd129f8e590f6c08ffd532b2353a4b32ab0f9e954e9d1877ff
+----------------------------------------------------------------
+
+=== shasum 风格（可直接 shasum -a 256 -c SHA256SUMS.txt 验证）===
+
+905cb39d7fe9e2250e5841ce2101dd8e5d1fa5be2f0a4c640f42bb799957e6be  LabTool-V3-0.2.0-ia32-portable.exe
+4dcd085d9e1583fb39c6b5c5e763932758767095b1614385c3e0cec00612fe9f  LabTool-V3-0.2.0-ia32-setup.exe
+558d580db88e8d9ae7fa8febb5dbf50f2befd8440699705a3b2b89d6c24de726  LabTool-V3-0.2.0-portable.exe
+85ba921d5b5a6b6bda7d36d721156a5355023cff408695a3dedd0dad77ecfef2  LabTool-V3-0.2.0-setup.exe
+4f1ae8a2114893e5c37b5839852bfe384f289a7f369ff12bd84af766dc74e78b  LabTool-V3-0.2.0-x64-portable.exe
+44afc95553d1f8dd129f8e590f6c08ffd532b2353a4b32ab0f9e954e9d1877ff  LabTool-V3-0.2.0-x64-setup.exe
+
+=== Windows 验证（PowerShell） ===
+  Get-FileHash ".\LabTool-V3-0.2.0-x64-portable.exe" -Algorithm SHA256
+
+=== macOS / Linux 验证（终端） ===
+  shasum -a 256 -c SHA256SUMS.txt
+

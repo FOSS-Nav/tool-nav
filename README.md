@@ -74,7 +74,8 @@ tool-nav/
 | `panels`       | `{icon, name, desc}[]`            | 功能面板（左侧 Tab）                                |
 | `workflow`     | `{title, desc}[]`                 | 使用步骤                                            |
 | `versions`     | `{label, year, title, desc}[]`    | 版本历史（按时间倒序，首个标 latest）               |
-| `architecture` | `string?`                         | 架构图（ASCII art）                                 |
+| `archSpec`     | `object?`                         | 架构图（结构化 spec，渲染为 SVG；含 `title` / `lanes[]` / `flows[]` / `legend[]`） |
+| `downloads`    | `object?`                         | 软件下载区块（放在「核心功能」之前；含 `items[]` / `source` / `requirements[]`，每个 item 携带 `filename` / `sizeText` / `sha256` / `url`） |
 | `contact`      | `{icon, label, value, href?}[]`   | 联系方式                                            |
 
 > 所有字段都是**可选的**，渲染层会优雅降级（缺哪个区块就不显示哪个区块）。
